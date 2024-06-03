@@ -1,0 +1,9 @@
+.iot-core-container {
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.iot-core-container>p {
+	margin-bottom: -5px;
+	margin-top: 0px;
+}
