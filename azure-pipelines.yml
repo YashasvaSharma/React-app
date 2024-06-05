@@ -16,9 +16,9 @@ variables:
   ecsClusterName: 'frontend-airties-1'
   ecsServiceName: 'airties-ecs-service'
   dockerImageTag: 'latest'
-  awsAccessKeyId: $(aws-access-key)
-  awsSecretAccessKey: $(aws-secret-key)
-  awsSessionToken:  $(aws-token)
+  awsAccessKeyId: $(AWS-ACCESS-KEY)
+  awsSecretAccessKey: $(AWS-SECRET-KEY)
+  awsSessionToken: $(AWS-TOKEN)
 
 stages:
   - stage: Build
