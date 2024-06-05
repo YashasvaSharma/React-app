@@ -11,10 +11,10 @@ pool:
 
 variables:
   awsRegion: 'us-east-1'
-  ecrRepositoryName: 'frontend-airties-1'
-  containerName: 'airties-frontend-app'
-  ecsClusterName: 'frontend-airties-1'
-  ecsServiceName: 'airties-ecs-service'
+  ecrRepositoryName: 'frontend-1'
+  containerName: 'frontend-app'
+  ecsClusterName: 'frontend-1'
+  ecsServiceName: 'frontend-ecs-service'
   dockerImageTag: 'latest'
   awsAccessKeyId: $(AWS-ACCESS-KEY)
   awsSecretAccessKey: $(AWS-SECRET-KEY)
