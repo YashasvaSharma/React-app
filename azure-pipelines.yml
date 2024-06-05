@@ -32,17 +32,4 @@ stages:
               command: 'buildAndPush'
               Dockerfile: 'Dockerfile'
               tags: $(dockerImageTag)
-  
-  - stage:
-    dependsOn: Build
-    jobs:
-      - job: Deploy
-        steps:
-          - script: |
-             aws ecs update-service --cluster $(ecsClusterName) --service $(ecsServiceName) --force-new-deployment
-            displayName: 'Deploy to ECS'
-            env:
-              AWS_ACCESS_KEY_ID: $(awsAccessKeyId)
-              AWS_SECRET_ACCESS_KEY: $(awsSecretAccessKey)
-              AWS_SESSION_TOKEN: $(awsSessionToken) 
 
