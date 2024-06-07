@@ -38,6 +38,11 @@ stages:
               aws configure set aws_session_token $(awsSessionToken)
               aws configure set default.region $(awsRegion)
             displayName: 'Configure AWS credentials'
+          
+          - script: |
+              aws sts get-caller-identity
+            displayName: 'Checking connection to AWS'
+
 
   - stage: Build_React_App
     jobs:
