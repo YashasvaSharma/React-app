@@ -48,10 +48,9 @@ stages:
               versionSource: 'spec'
               versionSpec: '18.x'
 
-          - script: |
-              npm install
-              npm run build
-            displayName: 'npm install and build'
+          - task: DockerInstaller@0
+            inputs:
+              dockerVersion: '17.09.0-ce'
 
           - script: |
               docker build -t $(imageName):$(Build.BuildId)
