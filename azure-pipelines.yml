@@ -44,5 +44,5 @@ stages:
       - job: Build
         steps:
           - script: |
-              docker build -t $(imageName):$(Build.BuildId)
+              docker build -t $(imageName):$(Build.BuildId) .
             displayName: 'Build Docker Image'
