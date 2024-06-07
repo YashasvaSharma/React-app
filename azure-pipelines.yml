@@ -53,5 +53,5 @@ stages:
               dockerVersion: '17.09.0-ce'
 
           - script: |
-              docker build -t $(imageName):$(Build.BuildId)
+              docker build -t $(imageName):$(Build.BuildId) .
             displayName: 'Build Docker Image'
