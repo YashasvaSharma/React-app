@@ -38,26 +38,11 @@ stages:
               aws configure set aws_session_token $(awsSessionToken)
               aws configure set default.region $(awsRegion)
             displayName: 'Configure AWS credentials'
-          
-          - script: |
-              aws sts get-caller-identity
-            displayName: 'Checking connection to AWS'
-
 
   - stage: Build_React_App
     jobs:
       - job: Build
         steps:
-          - task: NodeTool@0
-            inputs:
-              versionSource: 'spec'
-              versionSpec: '18.x'
-
-          - task: DockerInstaller@0
-            inputs:
-              dockerVersion: '17.09.0-ce'
-
           - script: |
               docker build -t $(imageName):$(Build.BuildId) .
             displayName: 'Build Docker Image'
-
