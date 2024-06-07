@@ -11,25 +11,38 @@ pool:
 
 variables:
   awsRegion: 'us-east-1'
-  ecrRepositoryName: 'frontend-1'
-  containerName: 'frontend-app'
-  ecsClusterName: 'frontend-1'
-  ecsServiceName: 'frontend-ecs-service'
+  imageName: 'react-frontend'
   dockerImageTag: 'latest'
   awsAccessKeyId: $(AWS-ACCESS-KEY)
   awsSecretAccessKey: $(AWS-SECRET-KEY)
   awsSessionToken: $(AWS-TOKEN)
 
 stages:
-  - stage: Build
+  - stage: Configure_AWS_CLI
+    jobs:
+      - job:
+        steps:
+          - task: UsePythonVersion@0
+            inputs: 
+              versionSpec: '3.X'
+              addToPath: true
+          
+          - script: |
+              python -m pip install --upgrade pip
+              pip install awscli
+            displayName: 'Install AWS CLI'
+
+          - script: |
+              aws configure set aws_access_key_id $(awsAccessKeyId)
+              aws configure set aws_secret_access_key $(awsSecretAccessKey)
+              aws configure set aws_session_token $(awsSessionToken)
+              aws configure set default.region $(awsRegion)
+            displayName: 'Configure AWS credentials'
+
+  - stage: Build_React_App
     jobs:
       - job: Build
         steps:
-          - task: Docker@2
-            inputs:
-              containerRegistry: 'AWS'
-              repository: '$(ecrRepositoryName)'
-              command: 'buildAndPush'
-              Dockerfile: 'Dockerfile'
-              tags: $(dockerImageTag)
-
+          - script: |
+              docker build -t $(imageName):$(Build.BuildId)
+            displayName: 'Build Docker Image'
